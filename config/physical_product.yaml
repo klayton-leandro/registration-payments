@@ -1,0 +1,31 @@
+logging:
+  disable_existing_loggers: false
+  formatters:
+    normal:
+      datefmt: '%Y-%m-%dT%H:%M:%S%z'
+      format: '%(asctime)s %(name)-8s %(levelname)-6s %(funcName)-24s %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: normal
+      stream: ext://sys.stdout
+    file_handler:
+      backupCount: 30
+      class: 'logging.handlers.TimedRotatingFileHandler'
+      delay: true
+      encoding: 'utf8'
+      filename: './log/physical_product.log'
+      formatter: 'normal'
+      interval: 1
+      level: DEBUG
+      when: 'midnight'
+  root:
+    handlers:
+      - file_handler
+      - console
+    level: DEBUG
+  version: 1
+configuration:
+  type: "physical_product"
+  processor: "PhysicalProductPayment"
